@@ -4,7 +4,7 @@ const db = require('../../models');
 const create = asyncHandler(
     async (req, res) => {
         const bodyData = req.body;
-        const createdCoordsData = await db.coords.create({
+        const createdCoordsData = await db.bicycle_coords.create({
             ...bodyData
         })
 
@@ -17,7 +17,7 @@ const create = asyncHandler(
 )
 
 const getData = asyncHandler(async (req, res) => {
-    const allBicyclesCoords = await db.coords.findAll();
+    const allBicyclesCoords = await db.bicycle_coords.findAll();
     return res.status(200)
         .json({
             status: true,

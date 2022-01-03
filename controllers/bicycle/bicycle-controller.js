@@ -25,7 +25,19 @@ const getData = asyncHandler(async (req, res) => {
         })
 })
 
+const getDataById = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const bicycle = await db.bicycle.findByPk(id);
+    return res.status(200)
+        .json({
+            status: true,
+            data: bicycle,
+        })
+})
+
+
 module.exports = {
     create,
     getData,
+    getDataById,
 }

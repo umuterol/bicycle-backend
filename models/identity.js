@@ -3,7 +3,7 @@ const {
     Model,
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class bicycle extends Model {
+    class identity extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -11,32 +11,22 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            bicycle.belongsTo(models.users_infos, {
-                foreignKey: {
-                    name: 'owner',
-                    allowNull: false,
-                },
-                onDelete: 'cascade',
-            })
         }
     };
-    bicycle.init({
-        id: {
+    identity.init({
+        phone: {
             type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
         },
-        price: {
-            type: DataTypes.DOUBLE,
-            allowNull: false,
-        },
         status: {
-            type: DataTypes.ENUM('using', 'parked','notactive'),
+            type: DataTypes.ENUM('confirmed', 'unconfirmed'),
             allowNull: false,
+            defaultValue: 'unconfirmed',
         }
     }, {
         sequelize,
-        modelName: 'bicycle',
+        modelName: 'identity',
     });
-    return bicycle;
+    return identity;
 };

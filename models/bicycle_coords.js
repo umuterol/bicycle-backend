@@ -1,9 +1,10 @@
 'use strict';
 const {
     Model,
+    Sequelize
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class bicycle extends Model {
+    class bicycle_coords extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -11,32 +12,30 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            bicycle.belongsTo(models.users_infos, {
-                foreignKey: {
-                    name: 'owner',
-                    allowNull: false,
-                },
+            bicycle_coords.belongsTo(models.bicycle, {
+                foreignKey: "bicycleId",
                 onDelete: 'cascade',
             })
         }
     };
-    bicycle.init({
-        id: {
+    bicycle_coords.init({
+        bicycleId: {
             type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
         },
-        price: {
-            type: DataTypes.DOUBLE,
+        lat: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
-        status: {
-            type: DataTypes.ENUM('using', 'parked','notactive'),
+        lng: {
+            type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
     }, {
         sequelize,
-        modelName: 'bicycle',
+        modelName: 'bicycle_coords',
+        createdAt: false,
     });
-    return bicycle;
+    return bicycle_coords;
 };
