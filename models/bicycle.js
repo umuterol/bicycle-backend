@@ -11,12 +11,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            bicycle.belongsTo(models.users_infos, {
+            bicycle.belongsTo(models.identity, {
                 foreignKey: {
                     name: 'owner',
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
         }
     };
@@ -31,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         status: {
-            type: DataTypes.ENUM('using', 'parked','notactive'),
+            type: DataTypes.ENUM('using', 'parked', 'notactive'),
             allowNull: false,
         }
     }, {

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            drive.belongsTo(models.users_infos, {
+            drive.belongsTo(models.identity, {
                 foreignKey: "tc",
             })
             drive.belongsTo(models.bicycle, {

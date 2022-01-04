@@ -14,7 +14,7 @@ app.use("/api", apiRouters)
 
 app.listen(process.env.PORT, () => {
     // db.sequelize.sync();
-    // db.sequelize.sync({force:true});
+    // db.sequelize.sync({ force: true });
     console.log("server started")
 })
 

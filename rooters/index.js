@@ -3,7 +3,8 @@ const router = express.Router();
 const Routes = require("./routers");
 
 router.use("/bicycle", Routes.bicyleRoute);
-router.use("/sms",Routes.smsRoute);
+router.use("/sms", Routes.smsRoute);
+router.use("/user", Routes.userRoute);
 
 
 module.exports = router;

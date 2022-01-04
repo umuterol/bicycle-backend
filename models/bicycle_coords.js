@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             bicycle_coords.belongsTo(models.bicycle, {
                 foreignKey: "bicycleId",
-                onDelete: 'cascade',
             })
         }
     };

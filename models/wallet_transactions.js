@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "transaction_type",
             })
 
-            wallet_transactions.belongsTo(models.users_infos, {
+            wallet_transactions.belongsTo(models.identity, {
                 foreignKey: "tc",
             })
         }
