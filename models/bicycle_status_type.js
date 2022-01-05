@@ -4,7 +4,7 @@ const {
     Sequelize
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class bicycle_coords extends Model {
+    class bicycle_status_type extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -12,30 +12,19 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            bicycle_coords.belongsTo(models.bicycle, {
-                foreignKey: "bicycleId",
-                onDelete:'cascade',
-            })
         }
     };
-    bicycle_coords.init({
-        bicycleId: {
+    bicycle_status_type.init({
+        id: {
             type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
         },
-        lat: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        lng: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
     }, {
         sequelize,
-        modelName: 'bicycle_coords',
-        createdAt: false,
+        modelName: 'bicycle_status_type',
+        timestamps: false,
+
     });
-    return bicycle_coords;
+    return bicycle_status_type;
 };

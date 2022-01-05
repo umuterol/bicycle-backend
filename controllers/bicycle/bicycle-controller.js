@@ -42,4 +42,5 @@ module.exports = {
     updateData: controller.updateData,
     destroyData: controller.destroyData,
     getDataByQuery: controller.getDataByQuery,
+    getDataByQueryOr: controller.getDataByQueryOr,
 }

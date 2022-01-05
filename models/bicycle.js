@@ -1,6 +1,6 @@
 'use strict';
 const {
-    Model,
+    Model, Op,
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class bicycle extends Model {
@@ -17,6 +17,13 @@ module.exports = (sequelize, DataTypes) => {
                     allowNull: false,
                 },
             })
+            bicycle.belongsTo(models.bicycle_status_type, {
+                foreignKey: {
+                    name: 'status',
+                    allowNull: false,
+                    defaultValue: 'parked',
+                },
+            })
         }
     };
     bicycle.init({
@@ -29,10 +36,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DOUBLE,
             allowNull: false,
         },
-        status: {
-            type: DataTypes.ENUM('using', 'parked', 'notactive'),
-            allowNull: false,
-        }
     }, {
         sequelize,
         modelName: 'bicycle',

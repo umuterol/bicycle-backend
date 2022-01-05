@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             wallet.belongsTo(models.identity, {
                 foreignKey: "tc",
+                onDelete: 'cascade',
             })
         }
     };

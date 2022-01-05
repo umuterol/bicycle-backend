@@ -1,4 +1,5 @@
 const { successMessage, errorMessage } = require("../helpers/resMessage");
+const { Op } = require("sequelize");
 class Controller {
     constructor(model) {
         this.model = model;
@@ -72,6 +73,25 @@ class Controller {
         try {
             const data = await this.model.findAll({
                 where: query,
+            });
+
+            if (data.length === 0) {
+                return errorMessage(res, "No data found.", 400);
+            }
+            return successMessage(res, data);
+        } catch (error) {
+            return errorMessage(res, error, 400);
+        }
+    };
+
+
+    getDataByQueryOr = async (req, res) => {
+        const query = req.query;
+        try {
+            const data = await this.model.findAll({
+                where: {
+                    [Op.or]: query
+                },
             });
 
             if (data.length === 0) {
