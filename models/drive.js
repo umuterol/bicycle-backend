@@ -1,4 +1,5 @@
 'use strict';
+const { driveAfterFindHandler } = require("../helpers/model/driveHelper");
 const {
     Model,
     Sequelize
@@ -17,6 +18,16 @@ module.exports = (sequelize, DataTypes) => {
             })
             drive.belongsTo(models.bicycle, {
                 foreignKey: "bicycle_id",
+            })
+            drive.belongsTo(models.drive_status_type, {
+                foreignKey: {
+                    name: 'status',
+                    allowNull: false,
+                    defaultValue: 'notactive',
+                }
+            })
+            drive.belongsTo(models.wallet_transactions, {
+                foreignKey: "wallet_transaction_id",
             })
         }
     };
@@ -38,9 +49,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         start_lat: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         start_lng: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         finish_time: {
             type: DataTypes.DATE,
@@ -51,15 +64,20 @@ module.exports = (sequelize, DataTypes) => {
         finish_lng: {
             type: DataTypes.STRING,
         },
-        status: {
-            type: DataTypes.ENUM('finished', 'active'),
-            allowNull: false,
-        }
+        message: {
+            type: DataTypes.STRING,
+        },
+        minute: DataTypes.STRING,
     }, {
         sequelize,
         modelName: 'drive',
         createdAt: false,
         updatedAt: false,
+        hooks: {
+            afterFind: async (data) => {
+                await driveAfterFindHandler(sequelize, data);
+            },
+        },
     });
     return drive;
 };

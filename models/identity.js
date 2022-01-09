@@ -12,6 +12,13 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            identity.belongsTo(models.identity_status_type, {
+                foreignKey: {
+                    name: 'status',
+                    allowNull: false,
+                    defaultValue: 'unconfirmed',
+                }
+            })
         }
     };
     identity.init({
@@ -31,20 +38,12 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
         },
-        birth: {
-            type: DataTypes.DATEONLY,
-            allowNull: false,
-        },
+        birth: DataTypes.DATEONLY,
         phone: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
         },
-        status: {
-            type: DataTypes.ENUM('confirmed', 'unconfirmed', 'blocked'),
-            allowNull: false,
-            defaultValue: 'unconfirmed',
-        }
     }, {
         sequelize,
         modelName: 'identity',

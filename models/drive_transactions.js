@@ -1,4 +1,5 @@
 'use strict';
+const { driveTransactionAfterCreateHandler } = require("../helpers/model/driveTransactionsHelper")
 const {
     Model,
     Sequelize
@@ -13,16 +14,13 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             drive_transactions.belongsTo(models.drive_transaction_type, {
-                foreignKey: "transaction_type",
+                foreignKey: {
+                    name: "transaction_type",
+                    allowNull: false,
+                },
             })
             drive_transactions.belongsTo(models.drive, {
                 foreignKey: "drive_id",
-            })
-            drive_transactions.belongsTo(models.wallet_transactions, {
-                foreignKey: {
-                    name: "wallet_transaction_id",
-                    allowNull: false,
-                }
             })
         }
     };
@@ -33,10 +31,20 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             allowNull: false,
         },
+        status: {
+            type: DataTypes.ENUM('successful', 'unsuccessful', 'waiting'),
+            allowNull: false,
+            defaultValue: 'waiting',
+        },
     }, {
         sequelize,
         modelName: 'drive_transactions',
         updatedAt: false,
+        hooks: {
+            afterCreate: async (drive_transactions, options) => {
+                await driveTransactionAfterCreateHandler(sequelize, drive_transactions, options)
+            }
+        }
     });
     return drive_transactions;
 };

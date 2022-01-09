@@ -13,17 +13,14 @@ module.exports = (sequelize, DataTypes) => {
     };
     wallet_transaction_type.init({
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
         },
-        type: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        }
     }, {
         sequelize,
         modelName: 'wallet_transaction_type',
+        timestamps: false,
     });
     return wallet_transaction_type;
 };

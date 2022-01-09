@@ -36,6 +36,21 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DOUBLE,
             allowNull: false,
         },
+        total_earn: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0,
+        },
+        user_earn: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0,
+        },
+        withdraw: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0,
+        },
     }, {
         sequelize,
         modelName: 'bicycle',

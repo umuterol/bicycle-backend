@@ -4,5 +4,7 @@ const bicycleStatusTypeController = require("../../controllers/bicycle/bicycle-s
 
 router.post("/create", bicycleStatusTypeController.create);
 router.get("", bicycleStatusTypeController.getAllData);
+router.put("/update/:id", bicycleStatusTypeController.updateData);
+router.delete("/delete/:id", bicycleStatusTypeController.destroyData);
 
 module.exports = router;

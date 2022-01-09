@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             bicycle_coords.belongsTo(models.bicycle, {
-                foreignKey: "bicycleId",
-                onDelete:'cascade',
+                foreignKey: "bicycle_id",
+                onDelete: 'cascade',
             })
         }
     };
     bicycle_coords.init({
-        bicycleId: {
+        bicycle_id: {
             type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
